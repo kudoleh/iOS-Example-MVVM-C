@@ -3,7 +3,7 @@
 //  ExampleMVVM
 //
 //  Created by Oleh Kudinov on 01.10.18.
-//
+// Note: All properties in Domain Entities are let, not var
 
 import Foundation
 

@@ -4,6 +4,7 @@
 //
 //  Created by Oleh Kudinov on 03.10.18.
 //
+// Note: All properties in Domain Entities are let, not var
 
 import Foundation
 
