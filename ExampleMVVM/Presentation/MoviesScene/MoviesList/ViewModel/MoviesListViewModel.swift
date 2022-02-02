@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol MoviesListViewModelDelegate: class {
+protocol MoviesListViewModelDelegate: AnyObject {
     func showRecentQueries(delegate: MoviesQueriesListViewModelDelegate)
     func closeRecentQueries()
 }

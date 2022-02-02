@@ -13,7 +13,7 @@ protocol MoviesSceneDIContainerDependencies {
     var imageDataTransferService: DataTransferInterface { get }
 }
 
-// Dependencies that exist only during life cicle of the movie scene
+// Dependencies that exist only during life cycle of the movie scene
 class MoviesSceneDIContainer {
     
     private let dependencies: MoviesSceneDIContainerDependencies
