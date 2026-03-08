@@ -11,7 +11,7 @@ struct APIEndpoints {
     
     static func movies(query: String, page: Int) -> DataEndpoint<MoviesPage> {
         
-        return DataEndpoint(path: "3/search/movie/",
+        return DataEndpoint(path: "3/search/movie",
                             queryParameters: ["query": query,
                                               "page": "\(page)"])
     }

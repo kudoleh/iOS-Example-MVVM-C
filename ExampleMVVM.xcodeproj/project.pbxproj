@@ -52,6 +52,7 @@
 		1FFFC834221B0041007D99D2 /* PosterImagesDataSourceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFC82C221B0041007D99D2 /* PosterImagesDataSourceInterface.swift */; };
 		1FFFC835221B0041007D99D2 /* MoviesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFC82F221B0041007D99D2 /* MoviesDataSource.swift */; };
 		1FFFC836221B0041007D99D2 /* MoviesDataSourceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFC830221B0041007D99D2 /* MoviesDataSourceInterface.swift */; };
+		FAED8B462F5E2649004D6404 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAED8B452F5E2649004D6404 /* SceneDelegate.swift */; };
 		FC2B713C2156C3D5002BD59E /* MoviesListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC2B71392156C3D4002BD59E /* MoviesListViewController.storyboard */; };
 		FC2B71422156C3EA002BD59E /* MoviesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2B71402156C3EA002BD59E /* MoviesListTableViewController.swift */; };
 		FC2B71432156C3EA002BD59E /* MoviesListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2B71412156C3EA002BD59E /* MoviesListItemCell.swift */; };
@@ -115,6 +116,7 @@
 		1FFFC830221B0041007D99D2 /* MoviesDataSourceInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesDataSourceInterface.swift; sourceTree = "<group>"; };
 		1FFFC83B221B0299007D99D2 /* FetchMoviesUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FetchMoviesUseCaseTests.swift; path = ExampleMVVMTests/FetchMoviesUseCaseTests.swift; sourceTree = SOURCE_ROOT; };
 		1FFFC83D221B02BA007D99D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ExampleMVVMTests/Info.plist; sourceTree = SOURCE_ROOT; };
+		FAED8B452F5E2649004D6404 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FC2B71392156C3D4002BD59E /* MoviesListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MoviesListViewController.storyboard; sourceTree = "<group>"; };
 		FC2B713B2156C3D4002BD59E /* MoviesListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesListViewController.swift; sourceTree = "<group>"; };
 		FC2B71402156C3EA002BD59E /* MoviesListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesListTableViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				FC2B715B2156FF93002BD59E /* AppAppearance.swift */,
 				1F1CD655222368CA00B0143C /* AppConfigurations.swift */,
 				1FB2B481222C10FC00C9D095 /* AppMainCoordinator.swift */,
+				FAED8B452F5E2649004D6404 /* SceneDelegate.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				1F1FC4A222E61EA800BCBA8D /* NetworkConfig.swift in Sources */,
 				1F326C4322B8243800154226 /* MVVMView.swift in Sources */,
 				1F1CD656222368CA00B0143C /* AppConfigurations.swift in Sources */,
+				FAED8B462F5E2649004D6404 /* SceneDelegate.swift in Sources */,
 				1FFFC833221B0041007D99D2 /* PosterImagesDataSource.swift in Sources */,
 				FC740818216555C500FE52A5 /* MoviesRecentQueriesStorage.swift in Sources */,
 				1FB2B480222C10A900C9D095 /* Coordinator.swift in Sources */,
@@ -779,12 +783,12 @@
 		1FA533A7201E1FDE00747E55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_BASE_URL = "http://api.themoviedb.org";
+				API_BASE_URL = "https://api.themoviedb.org";
 				API_KEY = 2696829a81b1b5827d515ff121700838;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				IMAGE_BASE_URL = "http://image.tmdb.org";
+				IMAGE_BASE_URL = "https://image.tmdb.org";
 				INFOPLIST_FILE = "$(SRCROOT)/ExampleMVVM/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -799,12 +803,12 @@
 		1FA533A8201E1FDE00747E55 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_BASE_URL = "http://api.themoviedb.org";
+				API_BASE_URL = "https://api.themoviedb.org";
 				API_KEY = 2696829a81b1b5827d515ff121700838;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				IMAGE_BASE_URL = "http://image.tmdb.org";
+				IMAGE_BASE_URL = "https://image.tmdb.org";
 				INFOPLIST_FILE = "$(SRCROOT)/ExampleMVVM/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
