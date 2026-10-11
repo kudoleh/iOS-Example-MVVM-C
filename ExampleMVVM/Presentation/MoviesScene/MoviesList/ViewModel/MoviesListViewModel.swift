@@ -43,6 +43,10 @@ class MoviesListViewModel: MVVMViewModel {
     weak var delegate: MoviesListViewModelDelegate?
     
     private var moviesLoadTask: Cancellable? { willSet { moviesLoadTask?.cancel() } }
+
+    /// Bumped on every load() / cancel, so a response from a superseded request can be told apart
+    /// from the latest one and ignored even if cancellation of the old task isn't honored in time.
+    private var latestRequestID = 0
     
     @discardableResult
     init(fetchMoviesUseCase: FetchMoviesUseCaseInterface,
@@ -69,6 +73,9 @@ class MoviesListViewModel: MVVMViewModel {
     }
     
     private func load(movieQuery: MovieQuery, loadingType: LoadingType) {
+        latestRequestID += 1
+        let requestID = latestRequestID
+
         self.loadingType.value = loadingType
         self.query.value = movieQuery.query
         
@@ -77,7 +84,12 @@ class MoviesListViewModel: MVVMViewModel {
         dispatchGroup.enter()
         let moviesRequest = FetchMoviesUseCaseRequestValue(query: movieQuery, page: nextPage)
         moviesLoadTask = fetchMoviesUseCase.execute(requestValue: moviesRequest) { [weak self] result in
-            guard let weakSelf = self else { return }
+            // Ignore responses from a request that's been superseded by a newer search (or cancelled),
+            // in case this one is slower and would otherwise overwrite fresher results.
+            guard let weakSelf = self, requestID == weakSelf.latestRequestID else {
+                dispatchGroup.leave()
+                return
+            }
             switch result {
             case .success(let moviesPage):
                 weakSelf.appendPage(moviesPage: moviesPage)
@@ -100,7 +112,9 @@ class MoviesListViewModel: MVVMViewModel {
             dispatchGroup.leave()
         }
 
-        dispatchGroup.notify(queue: .main) {
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            // A superseded request must not hide the spinner of the newer one.
+            guard let self = self, requestID == self.latestRequestID else { return }
             self.loadingType.value = .none
         }
     }
@@ -139,7 +153,11 @@ extension MoviesListViewModel {
     }
     
     func didCancelSearch() {
+        latestRequestID += 1
         moviesLoadTask?.cancel()
+        resetPages()
+        query.value = ""
+        loadingType.value = .none
     }
     
     func showQueriesSuggestions() {

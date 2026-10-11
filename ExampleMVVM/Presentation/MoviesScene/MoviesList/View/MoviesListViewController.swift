@@ -15,17 +15,20 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
     @IBOutlet weak var suggestionsListContainer: UIView!
     @IBOutlet weak var searchBarContainer: UIView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
-    @IBOutlet weak var emptyDataLabel: UILabel!
+    @IBOutlet weak var emptyStateStackView: UIStackView!
+    @IBOutlet weak var emptyStateIconImageView: UIImageView!
+    @IBOutlet weak var emptyStateTitleLabel: UILabel!
+    @IBOutlet weak var emptyStateSubtitleLabel: UILabel!
     
     var viewModel: MoviesListViewModel!
     
     private var moviesTableViewController: MoviesListTableViewController?
     var searchController = UISearchController(searchResultsController: nil)
+    private let searchDebouncer: Debouncer = DefaultDebouncer(delay: 0.4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = NSLocalizedString("Movies", comment: "")
-        emptyDataLabel.text = NSLocalizedString("Search results ", comment: "")
         setupSearchController()
         
         bind(to: viewModel)
@@ -50,10 +53,14 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        searchDebouncer.cancel()
         searchController.isActive = false
     }
     
     private func updateSearchController(query: String) {
+        // Live search already keeps the search bar's text in sync with `query` as the user types,
+        // so only force-sync (and dismiss search) when the query changed from elsewhere, e.g. a selected suggestion.
+        guard searchController.searchBar.text != query else { return }
         searchController.isActive = false
         searchController.searchBar.text = query
     }
@@ -74,7 +81,7 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
     
     private func updateViewsVisibility(model: MoviesListViewModel) {
         loadingView.isHidden = true
-        emptyDataLabel.isHidden = true
+        emptyStateStackView.isHidden = true
         moviesListContainer.isHidden = true
         suggestionsListContainer.isHidden = true
         moviesTableViewController?.update(isLoadingNextPage: false)
@@ -85,15 +92,36 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
             moviesTableViewController?.update(isLoadingNextPage: true)
             moviesListContainer.isHidden = false
         } else if model.isEmpty {
-            emptyDataLabel.isHidden = false
+            updateEmptyState()
+            emptyStateStackView.isHidden = false
         } else {
             moviesListContainer.isHidden = false
         }
         updateQuerySuggestionsVisibility()
     }
     
+    private func updateEmptyState() {
+        let query = viewModel.query.value
+        if query.isEmpty {
+            emptyStateIconImageView.image = UIImage(systemName: "magnifyingglass")
+            emptyStateTitleLabel.text = NSLocalizedString("Search Movies", comment: "")
+            emptyStateSubtitleLabel.text = NSLocalizedString("Type a title above and results will appear as you type.", comment: "")
+        } else {
+            let format = NSLocalizedString("No movies found for \u{201c}%@\u{201d}. Try another title.", comment: "")
+            emptyStateIconImageView.image = UIImage(systemName: "film")
+            emptyStateTitleLabel.text = NSLocalizedString("No Results", comment: "")
+            emptyStateSubtitleLabel.text = String(format: format, query)
+        }
+    }
+
+    @IBAction private func startSearchButtonTapped(_ sender: UIButton) {
+        searchController.searchBar.becomeFirstResponder()
+    }
+
     private func updateQuerySuggestionsVisibility() {
-        setQueriesSuggestionsView(isVisible: searchController.searchBar.isFirstResponder)
+        // Suggestions only make sense while the field is focused and still empty.
+        let isEmptyField = (searchController.searchBar.text ?? "").isEmpty
+        setQueriesSuggestionsView(isVisible: searchController.searchBar.isFirstResponder && isEmptyField)
     }
     
     private func setQueriesSuggestionsView(isVisible: Bool) {
@@ -107,14 +135,30 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
 }
 
 extension MoviesListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchDebouncer.cancel()
+        updateQuerySuggestionsVisibility()
+
+        guard !searchText.isEmpty else {
+            viewModel.didCancelSearch()
+            return
+        }
+
+        searchDebouncer.execute { [weak self] in
+            self?.viewModel.didSearch(query: searchText)
+        }
+    }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
+        searchDebouncer.cancel()
         searchController.isActive = false
         moviesTableViewController?.tableView.setContentOffset(CGPoint.zero, animated: false)
         viewModel.didSearch(query: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchDebouncer.cancel()
         viewModel.didCancelSearch()
     }
 }
