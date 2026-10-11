@@ -155,8 +155,6 @@ extension MoviesListViewModel {
     func didCancelSearch() {
         latestRequestID += 1
         moviesLoadTask?.cancel()
-        resetPages()
-        query.value = ""
         loadingType.value = .none
     }
     

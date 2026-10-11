@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1FD0DE0BA002000000000000 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0DE0BA001000000000000 /* Debouncer.swift */; };
-		1FD0DE0BA003000000000000 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0DE0BA001000000000000 /* Debouncer.swift */; };
-		1FD0DE0BB002000000000000 /* DebouncerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD0DE0BB001000000000000 /* DebouncerTests.swift */; };
 		1F05A6CC2220A2CB001E2801 /* FetchMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F05A6CB2220A2CB001E2801 /* FetchMoviesUseCase.swift */; };
 		1F1CD656222368CA00B0143C /* AppConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1CD655222368CA00B0143C /* AppConfigurations.swift */; };
 		1F1FC49F22E61EA800BCBA8D /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FC49B22E61EA800BCBA8D /* Network.swift */; };
@@ -77,8 +74,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1FD0DE0BA001000000000000 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
-		1FD0DE0BB001000000000000 /* DebouncerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebouncerTests.swift; path = ExampleMVVMTests/DebouncerTests.swift; sourceTree = SOURCE_ROOT; };
 		1F05A6CB2220A2CB001E2801 /* FetchMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchMoviesUseCase.swift; sourceTree = "<group>"; };
 		1F1CD655222368CA00B0143C /* AppConfigurations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurations.swift; sourceTree = "<group>"; };
 		1F1FC49B22E61EA800BCBA8D /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
@@ -156,7 +151,6 @@
 				1F326C4022B8243800154226 /* MVVM */,
 				1F326C3F22B823DB00154226 /* Protocols */,
 				1FEE31612218B17E00C160B9 /* Observable.swift */,
-				1FD0DE0BA001000000000000 /* Debouncer.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -304,7 +298,6 @@
 			isa = PBXGroup;
 			children = (
 				1FFFC83B221B0299007D99D2 /* FetchMoviesUseCaseTests.swift */,
-				1FD0DE0BB001000000000000 /* DebouncerTests.swift */,
 				1FFFC83D221B02BA007D99D2 /* Info.plist */,
 			);
 			name = ExampleMVVMTests;
@@ -608,7 +601,6 @@
 				1F326C3A22B8169800154226 /* MovieOffer.swift in Sources */,
 				1F1FC49F22E61EA800BCBA8D /* Network.swift in Sources */,
 				1FEE31622218B17E00C160B9 /* Observable.swift in Sources */,
-				1FD0DE0BA002000000000000 /* Debouncer.swift in Sources */,
 				1F474F2522356B690092DB4B /* Cancellable.swift in Sources */,
 				1FFFC836221B0041007D99D2 /* MoviesDataSourceInterface.swift in Sources */,
 				1F326C3822B8163A00154226 /* FetchMovieOfferUseCase.swift in Sources */,
@@ -648,8 +640,6 @@
 				1F474F3222356CEC0092DB4B /* Movie.swift in Sources */,
 				1F474F3A22356CEC0092DB4B /* Cancellable.swift in Sources */,
 				1F474F3122356CDD0092DB4B /* FetchMoviesUseCaseTests.swift in Sources */,
-				1FD0DE0BB002000000000000 /* DebouncerTests.swift in Sources */,
-				1FD0DE0BA003000000000000 /* Debouncer.swift in Sources */,
 				1F474F3322356CEC0092DB4B /* MovieQuery.swift in Sources */,
 				1F474F3722356CEC0092DB4B /* PosterImagesDataSourceInterface.swift in Sources */,
 				1F474F3822356CEC0092DB4B /* MoviesQueriesDataSourceInterface.swift in Sources */,
