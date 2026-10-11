@@ -7,33 +7,19 @@
 
 import UIKit
 
-@UIApplicationMain
+@main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let appDIContainer = AppDIContainer()
-    var window: UIWindow?
-    private var mainCoordinator: AppMainCoordinator?
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AppAppearance.setupAppearance()
-
-        if #available(iOS 13.0, *) {
-            return true
-        }
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController()
-        window?.rootViewController = navigationController
-        mainCoordinator = AppMainCoordinator(navigationController: navigationController,
-                                             appDIContainer: appDIContainer)
-        mainCoordinator?.start()
-        window?.makeKeyAndVisible()
-
         return true
     }
 
-    @available(iOS 13.0, *)
+    // The window is created per scene in `SceneDelegate` (the UIScene life cycle is required
+    // for apps built with the iOS 26+ SDKs).
     func application(_ application: UIApplication,
                      configurationForConnecting connectingSceneSession: UISceneSession,
                      options: UIScene.ConnectionOptions) -> UISceneConfiguration {
