@@ -100,7 +100,7 @@ class MoviesListViewController: UIViewController, MVVMView, StoryboardInstantiab
         if query.isEmpty {
             emptyStateIconImageView.image = UIImage(systemName: "magnifyingglass")
             emptyStateTitleLabel.text = NSLocalizedString("Search Movies", comment: "")
-            emptyStateSubtitleLabel.text = NSLocalizedString("Type a title above, then tap Search to see results.", comment: "")
+            emptyStateSubtitleLabel.text = NSLocalizedString("Type a title above, then tap Search or press Enter on the keyboard.", comment: "")
         } else {
             let format = NSLocalizedString("No movies found for \u{201c}%@\u{201d}. Try another title.", comment: "")
             emptyStateIconImageView.image = UIImage(systemName: "film")
